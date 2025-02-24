@@ -7,17 +7,60 @@
     "vscode": "^1.97.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "languages": [
       {
-        "command": "ladder-vscode-extension.helloWorld",
-        "title": "Hello World"
+        "id": "ladder",
+        "extensions": [
+          ".ld"
+        ],
+        "aliases": [
+          "Ladder",
+          "ld"
+        ],
+        "filenames": [],
+        "firstLine": "^#!/.*\\bladder[0-9.-]*\\b",
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./resources/ladder-light.svg",
+          "dark": "./resources/ladder-dark.svg"
+        }
       }
-    ]
+    ],
+    "customEditors": [
+      {
+        "viewType": "ladder.editor",
+        "displayName": "Ladder Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.ld"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "ladder",
+          "title": "Ladder",
+          "icon": "resources/ladder-light.svg"
+        }
+      ]
+    },
+    "views": {
+      "ladder": [
+        {
+          "id": "ladder.nodes",
+          "name": "Nodes",
+          "type": "webview"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -25,17 +68,22 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "deploy": "vsce publish"
   },
   "devDependencies": {
-    "@types/vscode": "^1.97.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/vscode": "^1.97.0",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",
-    "eslint": "^9.19.0",
-    "typescript": "^5.7.3",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.2.2",
+    "eslint": "^9.19.0",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "ladder-react-components": "^0.0.1"
   }
 }
